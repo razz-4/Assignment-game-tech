@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://ce6s62ubvcqwq"]
+
+[ext_resource type="Texture2D" uid="uid://bobkf3nk7yilc" path="res://icon.svg" id="1_brwfg"]
+[ext_resource type="Script" path="res://Scenes/test_enemy_character.gd" id="1_tuyow"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ctt11"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TestEnemyCharacter" type="Node2D" parent="."]
+scale = Vector2(0.204183, 0.19353)
+script = ExtResource("1_tuyow")
+
+[node name="TestEnemyCharacter" type="Sprite2D" parent="TestEnemyCharacter"]
+texture = ExtResource("1_brwfg")
+
+[node name="Timer" type="Timer" parent="TestEnemyCharacter"]
+wait_time = 1.5
+
+[node name="Area2D" type="Area2D" parent="TestEnemyCharacter"]
+scale = Vector2(2.74259, 2.74259)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestEnemyCharacter/Area2D"]
+scale = Vector2(39.6768, 43.0639)
+shape = SubResource("CircleShape2D_ctt11")
+
+[connection signal="timeout" from="TestEnemyCharacter/Timer" to="TestEnemyCharacter" method="_on_timer_timeout"]
+[connection signal="body_entered" from="TestEnemyCharacter/Area2D" to="TestEnemyCharacter" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="TestEnemyCharacter/Area2D" to="TestEnemyCharacter" method="_on_area_2d_body_exited"]
