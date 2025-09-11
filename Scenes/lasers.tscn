@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddu8sjp16fter"]
+
+[ext_resource type="Script" path="res://Scripts/killzone.gd" id="1_k80a5"]
+[ext_resource type="Texture2D" uid="uid://7hj1j75iujdr" path="res://Animation/Laser animation.png" id="1_njkxq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nj70r"]
+size = Vector2(13.5714, 25.5319)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oaw5u"]
+atlas = ExtResource("1_njkxq")
+region = Rect2(0, 0, 160, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mx64k"]
+atlas = ExtResource("1_njkxq")
+region = Rect2(160, 0, 160, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjhgq"]
+atlas = ExtResource("1_njkxq")
+region = Rect2(320, 0, 160, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kht7k"]
+atlas = ExtResource("1_njkxq")
+region = Rect2(480, 0, 160, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77jf1"]
+atlas = ExtResource("1_njkxq")
+region = Rect2(640, 0, 160, 480)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_37pe8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oaw5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mx64k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjhgq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kht7k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77jf1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Lasers" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_k80a5")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0.0999889, -1.90735e-06)
+scale = Vector2(0.280002, 3.76)
+shape = SubResource("RectangleShape2D_nj70r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-7.45058e-09, 2.27374e-13)
+scale = Vector2(0.199552, 0.199552)
+sprite_frames = SubResource("SpriteFrames_37pe8")
+autoplay = "default"
+frame_progress = 0.933505
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

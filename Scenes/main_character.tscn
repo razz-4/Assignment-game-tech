@@ -1,18 +1,65 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqh3n7x5xhph2"]
+[gd_scene load_steps=10 format=3 uid="uid://bqh3n7x5xhph2"]
 
 [ext_resource type="Script" path="res://Scripts/main_character.gd" id="1_bniy5"]
-[ext_resource type="Texture2D" uid="uid://bobkf3nk7yilc" path="res://icon.svg" id="1_naf71"]
+[ext_resource type="Texture2D" uid="uid://bwe23mxcktl2k" path="res://Assets/Characters/IMG_0125.PNG" id="2_lr5eu"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xqa8r"]
-size = Vector2(126, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_dijht"]
+atlas = ExtResource("2_lr5eu")
+region = Rect2(0, 0, 170, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlait"]
+atlas = ExtResource("2_lr5eu")
+region = Rect2(170, 0, 170, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0ix7"]
+atlas = ExtResource("2_lr5eu")
+region = Rect2(340, 0, 170, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xo6lu"]
+atlas = ExtResource("2_lr5eu")
+region = Rect2(510, 0, 170, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gtpu"]
+atlas = ExtResource("2_lr5eu")
+region = Rect2(680, 0, 170, 230)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3g723"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dijht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlait")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0ix7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xo6lu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gtpu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7dnpr"]
 
 [node name="mainCharacter" type="CharacterBody2D" groups=["Player"]]
-scale = Vector2(0.115, 0.115)
+scale = Vector2(0.267456, 0.267456)
 collision_layer = 3
 script = ExtResource("1_bniy5")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_naf71")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.097108, 0.097108)
+sprite_frames = SubResource("SpriteFrames_3g723")
+autoplay = "default"
+frame_progress = 0.914481
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_xqa8r")
+position = Vector2(0, 3.73894)
+scale = Vector2(0.574363, 0.574363)
+shape = SubResource("CircleShape2D_7dnpr")

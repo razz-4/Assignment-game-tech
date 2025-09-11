@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ce6s62ubvcqwq"]
 
 [ext_resource type="Texture2D" uid="uid://bobkf3nk7yilc" path="res://icon.svg" id="1_brwfg"]
-[ext_resource type="Script" path="res://Scenes/test_enemy_character.gd" id="1_tuyow"]
+[ext_resource type="Script" path="res://Scripts/test_enemy_character.gd" id="1_tuyow"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ctt11"]
 
