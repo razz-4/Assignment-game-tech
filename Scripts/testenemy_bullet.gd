@@ -8,6 +8,9 @@ var spawnRot : float
 @onready var checkpoint : Vector2 = Vector2(200,232) #position of the respawn point
 @onready var timer: Timer = $Timer
 @onready var player : CharacterBody2D = null
+@onready var bullet: Sprite2D = $Sprite2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var game_manager: Node = %gameManager
 
 
 
@@ -30,6 +33,9 @@ func _on_body_entered(body: Node2D) -> void:
 		print("body entered")
 		player = body
 		timer.start()
+		bullet.visible = false
+		collision_shape_2d.disabled = true
+	
 	
 	
 	
@@ -37,6 +43,6 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_timer_timeout() -> void:
 	if player and is_instance_valid(player):
 		player.global_position = checkpoint
-		
+		queue_free()
 
 	

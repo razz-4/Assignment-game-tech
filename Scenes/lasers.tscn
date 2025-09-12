@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://7hj1j75iujdr" path="res://Animation/Laser animation.png" id="1_njkxq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nj70r"]
-size = Vector2(13.5714, 25.5319)
+size = Vector2(13.5714, 21.0106)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oaw5u"]
 atlas = ExtResource("1_njkxq")
@@ -54,7 +54,7 @@ collision_mask = 2
 script = ExtResource("1_k80a5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0.0999889, -1.90735e-06)
+position = Vector2(0.0999889, -0.499999)
 scale = Vector2(0.280002, 3.76)
 shape = SubResource("RectangleShape2D_nj70r")
 
