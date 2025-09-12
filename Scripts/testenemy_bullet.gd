@@ -35,7 +35,7 @@ func _on_body_entered(body: Node2D) -> void:
 		timer.start()
 		bullet.visible = false
 		collision_shape_2d.disabled = true
-		game_manager.minus_hp()
+	
 	
 	
 	
