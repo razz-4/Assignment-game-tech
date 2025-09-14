@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://bmq2rs5xregkh"]
+[gd_scene load_steps=25 format=4 uid="uid://bmq2rs5xregkh"]
 
 [ext_resource type="PackedScene" uid="uid://bqh3n7x5xhph2" path="res://Scenes/main_character.tscn" id="1_yr676"]
 [ext_resource type="Texture2D" uid="uid://bifnl66xnuogh" path="res://Assets/Texture/Castle Tile Map/Terrain (32x32).png" id="3_1j8wa"]
@@ -11,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://ce6s62ubvcqwq" path="res://Scenes/testenemy_character.tscn" id="7_wy2ue"]
 [ext_resource type="Texture2D" uid="uid://b0uyrh830ara0" path="res://Assets/Background/Under heat.PNG" id="8_dorgv"]
 [ext_resource type="Texture2D" uid="uid://dw20vsinku5rm" path="res://Assets/Background/Filler heart.PNG" id="9_j2wwm"]
+[ext_resource type="Script" path="res://Scripts/test_enemy_character.gd" id="10_lw22r"]
+[ext_resource type="Texture2D" uid="uid://bobkf3nk7yilc" path="res://icon.svg" id="11_7eo8k"]
+[ext_resource type="PackedScene" uid="uid://bad2ocgoyx75q" path="res://Scenes/testenemy_bullet.tscn" id="12_i0y1j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s6sko"]
 texture = ExtResource("3_1j8wa")
@@ -1673,12 +1676,14 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ctt11"]
+
 [node name="mainWorld" type="Node2D" groups=["main world"]]
 metadata/_edit_vertical_guides_ = [-37.0, 780.0]
 
 [node name="mainCharacter" parent="." instance=ExtResource("1_yr676")]
 z_index = 2
-position = Vector2(1384, 464)
+position = Vector2(240, 224)
 scale = Vector2(2.0658, 2.0658)
 
 [node name="Camera2D" type="Camera2D" parent="mainCharacter"]
@@ -1817,7 +1822,37 @@ texture_progress = ExtResource("9_j2wwm")
 [node name="Enemy" type="Node2D" parent="."]
 position = Vector2(1648, 432)
 
-[node name="Node2D" parent="Enemy" instance=ExtResource("7_wy2ue")]
+[node name="Node2D" type="Node2D" parent="Enemy"]
+
+[node name="TestEnemyCharacter" type="Node2D" parent="Enemy/Node2D"]
+scale = Vector2(0.204183, 0.19353)
+script = ExtResource("10_lw22r")
+
+[node name="TestEnemyCharacter" type="Sprite2D" parent="Enemy/Node2D/TestEnemyCharacter"]
+texture = ExtResource("11_7eo8k")
+
+[node name="Timer" type="Timer" parent="Enemy/Node2D/TestEnemyCharacter"]
+wait_time = 1.5
+
+[node name="Area2D" type="Area2D" parent="Enemy/Node2D/TestEnemyCharacter"]
+visible = false
+scale = Vector2(2.74259, 2.74259)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Node2D/TestEnemyCharacter/Area2D"]
+scale = Vector2(39.6768, 43.0639)
+shape = SubResource("CircleShape2D_ctt11")
+
+[node name="Bullet" type="Node2D" parent="Enemy/Node2D"]
+scale = Vector2(0.55999, 0.530773)
+
+[node name="Bullets1" parent="Enemy/Node2D/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets2" parent="Enemy/Node2D/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Timer" type="Timer" parent="Enemy/Node2D"]
 
 [node name="Node2D2" parent="Enemy" instance=ExtResource("7_wy2ue")]
 position = Vector2(480, 0)
@@ -1831,4 +1866,8 @@ position = Vector2(-2666.87, -53.517)
 scale = Vector2(1.7296, 1.7165)
 
 [node name="Lasers2" parent="Lasers" instance=ExtResource("6_svqud")]
-scale = Vector2(1, 1)
+
+[connection signal="timeout" from="Enemy/Node2D/TestEnemyCharacter/Timer" to="Enemy/Node2D/TestEnemyCharacter" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Enemy/Node2D/TestEnemyCharacter/Area2D" to="Enemy/Node2D/TestEnemyCharacter" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Enemy/Node2D/TestEnemyCharacter/Area2D" to="Enemy/Node2D/TestEnemyCharacter" method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Enemy/Node2D/Timer" to="Enemy/Node2D/TestEnemyCharacter" method="_on_timer_timeout"]
