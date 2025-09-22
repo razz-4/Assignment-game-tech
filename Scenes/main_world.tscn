@@ -1864,6 +1864,9 @@ position = Vector2(2240, 432)
 [node name="Coin8" parent="Coins" instance=ExtResource("5_b1t15")]
 position = Vector2(2304, 432)
 
+[node name="Coin9" parent="Coins" instance=ExtResource("5_b1t15")]
+position = Vector2(490, 274)
+
 [node name="Map" type="Node2D" parent="."]
 
 [node name="Void" type="TileMapLayer" parent="Map"]
