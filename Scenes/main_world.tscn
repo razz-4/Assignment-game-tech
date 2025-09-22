@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://bmq2rs5xregkh"]
+[gd_scene load_steps=43 format=4 uid="uid://bmq2rs5xregkh"]
 
 [ext_resource type="PackedScene" uid="uid://bqh3n7x5xhph2" path="res://Scenes/main_character.tscn" id="1_yr676"]
 [ext_resource type="Texture2D" uid="uid://bifnl66xnuogh" path="res://Assets/Texture/Castle Tile Map/Terrain (32x32).png" id="3_1j8wa"]
@@ -6,14 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://i2d8lyt7bv5p" path="res://Assets/Texture/Castle Tile Map/Tile map (game tech).png" id="4_kr8lt"]
 [ext_resource type="PackedScene" uid="uid://b0deup42pb0gr" path="res://Scenes/coin.tscn" id="5_b1t15"]
 [ext_resource type="Script" path="res://game_manager.gd" id="6_5eei5"]
+[ext_resource type="Texture2D" uid="uid://ckquiowv8y5i6" path="res://Tile map (game tech).png" id="6_lw6ce"]
 [ext_resource type="PackedScene" uid="uid://ddu8sjp16fter" path="res://Scenes/lasers.tscn" id="6_svqud"]
 [ext_resource type="Texture2D" uid="uid://bsd6sa34g28me" path="res://Assets/Coins/Coin.png" id="7_rpd12"]
-[ext_resource type="PackedScene" uid="uid://ce6s62ubvcqwq" path="res://Scenes/testenemy_character.tscn" id="7_wy2ue"]
 [ext_resource type="Texture2D" uid="uid://b0uyrh830ara0" path="res://Assets/Background/Under heat.PNG" id="8_dorgv"]
 [ext_resource type="Texture2D" uid="uid://dw20vsinku5rm" path="res://Assets/Background/Filler heart.PNG" id="9_j2wwm"]
 [ext_resource type="Script" path="res://Scripts/test_enemy_character.gd" id="10_lw22r"]
 [ext_resource type="Texture2D" uid="uid://bobkf3nk7yilc" path="res://icon.svg" id="11_7eo8k"]
 [ext_resource type="PackedScene" uid="uid://bad2ocgoyx75q" path="res://Scenes/testenemy_bullet.tscn" id="12_i0y1j"]
+[ext_resource type="PackedScene" uid="uid://r8e24wimk8xo" path="res://Scenes/checkpoint.tscn" id="15_hsxsn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s6sko"]
 texture = ExtResource("3_1j8wa")
@@ -1650,6 +1651,140 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_h80kl")
 sources/1 = SubResource("TileSetAtlasSource_nb02p")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qtbmo"]
+size = Vector2(95, 31)
+
+[sub_resource type="Animation" id="Animation_5ye8o"]
+length = 2.75
+loop_mode = 2
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75, 2, 2.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1980, -218), Vector2(1980, -218), Vector2(2619, -218), Vector2(2619, -218)]
+}
+
+[sub_resource type="Animation" id="Animation_bppjr"]
+resource_name = "moving"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2400, 424), Vector2(2984, 424)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qxw37"]
+_data = {
+"RESET": SubResource("Animation_5ye8o"),
+"moving": SubResource("Animation_bppjr")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vm5m3"]
+size = Vector2(95, 31)
+
+[sub_resource type="Animation" id="Animation_u172p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3640, -184)]
+}
+
+[sub_resource type="Animation" id="Animation_j3gba"]
+resource_name = "up and down"
+length = 2.75
+loop_mode = 2
+step = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75, 2.02, 2.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(3640, -184), Vector2(3640, -184), Vector2(3640, -440), Vector2(3640, -440)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e87ql"]
+_data = {
+"RESET": SubResource("Animation_u172p"),
+"up and down": SubResource("Animation_j3gba")
+}
+
+[sub_resource type="Animation" id="Animation_dyk4r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3768, -472)]
+}
+
+[sub_resource type="Animation" id="Animation_vu66m"]
+resource_name = "left and right"
+length = 2.75
+loop_mode = 2
+step = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75, 2, 2.73333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(4408, -472), Vector2(4408, -472), Vector2(3768, -472), Vector2(3768, -472)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ueqyr"]
+_data = {
+"RESET": SubResource("Animation_dyk4r"),
+"left and right": SubResource("Animation_vu66m")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f3p82"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7gne3"]
+size = Vector2(26.04, 26.04)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v6s7g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2r3lb"]
+size = Vector2(26.04, 26.04)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ycvr"]
 bg_color = Color(0.773936, 0.369388, 0.333708, 1)
 border_width_left = 2
@@ -1676,7 +1811,18 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ctt11"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gylk"]
+bg_color = Color(0, 0, 0, 0.823529)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dttrr"]
+bg_color = Color(0.282353, 0.388235, 0.388235, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w5ny1"]
+size = Vector2(136, 100)
 
 [node name="mainWorld" type="Node2D" groups=["main world"]]
 metadata/_edit_vertical_guides_ = [-37.0, 780.0]
@@ -1729,11 +1875,240 @@ tile_set = SubResource("TileSet_n5ewe")
 rendering_quadrant_size = 33
 
 [node name="PlatformTiles" type="TileMapLayer" parent="Map"]
-tile_map_data = PackedByteArray("AAAAABMAAQAFAAUAAAABABMAAQACAAEAAAACABMAAQACAAEAAAADABMAAQACAAEAAAAEABMAAQACAAEAAAAFABMAAQACAAEAAAAGABMAAQACAAEAAAAHABMAAQACAAEAAAAIABMAAQAFAAUAAAAAAAAAAQAFAAUAAAABAAAAAQACAAEAAAACAAAAAQACAAEAAAADAAAAAQACAAEAAAAEAAAAAQACAAEAAAAFAAAAAQACAAEAAAAGAAAAAQACAAEAAAAHAAAAAQACAAEAAAAIAAAAAQACAAEAAAAJAAAAAQACAAEAAAAKAAAAAQACAAEAAAALAAAAAQACAAEAAAAMAAAAAQACAAEAAAANAAAAAQACAAEAAAAOAAAAAQACAAEAAAAPAAAAAQACAAEAAAAQAAAAAQACAAEAAAARAAAAAQACAAEAAAASAAAAAQACAAEAAAATAAAAAQACAAEAAAAUAAAAAQACAAEAAAAVAAAAAQACAAEAAAAWAAAAAQACAAEAAAAXAAAAAQACAAEAAAAYAAAAAQACAAEAAAAZAAAAAQACAAEAAAAaAAAAAQACAAEAAAAbAAAAAQACAAEAAAAcAAAAAQACAAEAAAAdAAAAAQACAAEAAAAeAAAAAQACAAEAAAAfAAAAAQACAAEAAAAgAAAAAQACAAEAAAAhAAAAAQACAAEAAAAiAAAAAQACAAEAAAAjAAAAAQACAAEAAAAkAAAAAQACAAEAAAAlAAAAAQACAAEAAAAmAAAAAQACAAEAAAAnAAAAAQACAAEAAAAoAAAAAQACAAEAAAApAAAAAQACAAEAAAAqAAAAAQACAAEAAAArAAAAAQACAAEAAAAsAAAAAQACAAEAAAAtAAAAAQACAAEAAAAuAAAAAQACAAEAAAAvAAAAAQACAAEAAAAwAAAAAQACAAEAAAAxAAAAAQACAAEAAAAyAAAAAQACAAEAAAAzAAAAAQACAAEAAAA0AAAAAQACAAEAAAA1AAAAAQACAAEAAAA2AAAAAQACAAEAAAA3AAAAAQACAAEAAAA4AAAAAQACAAEAAAA5AAAAAQACAAEAAAA6AAAAAQACAAEAAAA7AAAAAQACAAEAAAA8AAAAAQACAAEAAAA9AAAAAQACAAEAAAA+AAAAAQACAAEAAAA/AAAAAQACAAEAAABAAAAAAQACAAEAAABBAAAAAQACAAEAAABCAAAAAQACAAEAAABDAAAAAQACAAEAAABEAAAAAQACAAEAAAAAABIAAQADAAIAAAAAABEAAQADAAIAAAAAABAAAQADAAIAAAAAAA8AAQADAAIAAAAAAA4AAQADAAIAAAAAAA0AAQADAAIAAAAAAAwAAQADAAIAAAAAAAsAAQADAAIAAAAAAAoAAQADAAIAAAAAAAkAAQADAAIAAAAAAAgAAQADAAIAAAAAAAcAAQADAAIAAAAAAAYAAQADAAIAAAAAAAUAAQADAAIAAAAAAAQAAQADAAIAAAAAAAMAAQADAAIAAAAAAAIAAQADAAIAAAAAAAEAAQADAAIAAAClABMAAQACAAUAAACmABMAAQACAAUAAACnABMAAQACAAUAAACoABMAAQACAAUAAACpABMAAQACAAUAAACqABMAAQACAAUAAACrABMAAQACAAUAAACsABMAAQADAAUAAABFAAAAAQACAAEAAABGAAAAAQACAAEAAABHAAAAAQACAAEAAABIAAAAAQACAAEAAABJAAAAAQACAAEAAABKAAAAAQACAAEAAABLAAAAAQACAAEAAABMAAAAAQACAAEAAABNAAAAAQACAAEAAABOAAAAAQACAAEAAABPAAAAAQACAAEAAABQAAAAAQACAAEAAABRAAAAAQACAAEAAABSAAAAAQACAAEAAABTAAAAAQACAAEAAABUAAAAAQACAAEAAABVAAAAAQACAAEAAABWAAAAAQACAAEAAABXAAAAAQACAAEAAABYAAAAAQACAAEAAABZAAAAAQACAAEAAABaAAAAAQACAAEAAABbAAAAAQACAAEAAABcAAAAAQACAAEAAABdAAAAAQACAAEAAABeAAAAAQACAAEAAABfAAAAAQACAAEAAABgAAAAAQACAAEAAABhAAAAAQACAAEAAABiAAAAAQACAAEAAABjAAAAAQACAAEAAABkAAAAAQACAAEAAABlAAAAAQACAAEAAABmAAAAAQACAAEAAABnAAAAAQACAAEAAABoAAAAAQACAAEAAABpAAAAAQACAAEAAABqAAAAAQACAAEAAABrAAAAAQACAAEAAABsAAAAAQACAAEAAABtAAAAAQACAAEAAABuAAAAAQACAAEAAABvAAAAAQACAAEAAABwAAAAAQACAAEAAABxAAAAAQACAAEAAAByAAAAAQACAAEAAABzAAAAAQACAAEAAAB0AAAAAQACAAEAAAB1AAAAAQACAAEAAAB2AAAAAQACAAEAAAB3AAAAAQACAAEAAAB4AAAAAQACAAEAAAB5AAAAAQACAAEAAAB6AAAAAQACAAEAAAB7AAAAAQACAAEAAAB8AAAAAQACAAEAAAB9AAAAAQACAAEAAAB+AAAAAQACAAEAAAB/AAAAAQACAAEAAACAAAAAAQACAAEAAACBAAAAAQACAAEAAACCAAAAAQACAAEAAACDAAAAAQACAAEAAACEAAAAAQACAAEAAACFAAAAAQACAAEAAACGAAAAAQACAAEAAACHAAAAAQACAAEAAACIAAAAAQACAAEAAACJAAAAAQACAAEAAACKAAAAAQACAAEAAACLAAAAAQACAAEAAACMAAAAAQACAAEAAACNAAAAAQACAAEAAACOAAAAAQACAAEAAACPAAAAAQACAAEAAACQAAAAAQACAAEAAACRAAAAAQACAAEAAACSAAAAAQACAAEAAACTAAAAAQACAAEAAACUAAAAAQACAAEAAACVAAAAAQACAAEAAACWAAAAAQACAAEAAACXAAAAAQACAAEAAACYAAAAAQACAAEAAACZAAAAAQACAAEAAACaAAAAAQACAAEAAACbAAAAAQACAAEAAACcAAAAAQACAAEAAACdAAAAAQACAAEAAACeAAAAAQACAAEAAACfAAAAAQACAAEAAACgAAAAAQACAAEAAAChAAAAAQACAAEAAACiAAAAAQACAAEAAACjAAAAAQACAAEAAACkAAAAAQACAAEAAAClAAAAAQACAAEAAACmAAAAAQACAAEAAACnAAAAAQACAAEAAACoAAAAAQACAAEAAACpAAAAAQACAAEAAACqAAAAAQACAAEAAACrAAAAAQACAAEAAAAfAA8AAQABAAUAAAAgAA8AAQACAAUAAAAhAA8AAQADAAUAAAAEAAgAAQAQAAUAAAAFAAgAAQACAAUAAAAGAAgAAQACAAUAAAAHAAgAAQACAAUAAAAIAAgAAQACAAUAAAAJAAgAAQADAAUAAAAEAAcAAQAFAAIAAAAEAAYAAQAFAAIAAAAEAAUAAQAFAAIAAAAEAAQAAQAFAAIAAAAJAAUAAQAFAAMAAAAJAAQAAQAFAAIAAAAJAAMAAQARAAQAAAAEAAMAAQAQAAQAAAAFAAMAAQACAAUAAAAGAAMAAQACAAUAAAAHAAMAAQACAAUAAAAIAAMAAQACAAUAAAAMAAkAAQABAAUAAAANAAkAAQACAAUAAAAOAAkAAQACAAUAAAAPAAkAAQADAAUAAAAJAA0AAQABAAUAAAAKAA0AAQACAAUAAAALAA0AAQADAAUAAAAOABAAAQABAAUAAAAPABAAAQACAAUAAAAQABAAAQACAAUAAAARABAAAQACAAUAAAASABAAAQACAAUAAAATABAAAQACAAUAAAAUABAAAQADAAUAAAAYAA0AAQABAAUAAAAZAA0AAQACAAUAAAAaAA0AAQADAAUAAAAlAA4AAQAFAAIAAAAlAA8AAQAFAAIAAAAlABAAAQAFAAIAAAAlABEAAQAFAAIAAAAlABIAAQAFAAMAAAAlAAsAAQAFAAEAAAAlAAwAAQAFAAIAAAAlAA0AAQAFAAIAAAApABAAAQABAAUAAAAqABAAAQACAAUAAAArABAAAQACAAUAAAAsABAAAQACAAUAAAAtABAAAQACAAUAAAAuABAAAQADAAUAAAAyAA4AAQABAAUAAAAzAA4AAQACAAUAAAA0AA4AAQADAAUAAAA3AAsAAQABAAUAAAA4AAsAAQACAAUAAAA5AAsAAQADAAUAAAA+AA4AAQABAAEAAAA+AA8AAQABAAIAAAA+ABAAAQABAAMAAAA/AA4AAQACAAEAAAA/AA8AAQACAAIAAAA/ABAAAQACAAMAAABAAA4AAQACAAEAAABAAA8AAQACAAIAAABAABAAAQACAAMAAABBAA4AAQACAAEAAABCAA4AAQACAAEAAABDAA4AAQACAAEAAABEAA4AAQACAAEAAABFAA4AAQACAAEAAABGAA4AAQACAAEAAABHAA4AAQACAAEAAABIAA4AAQADAAEAAABBABAAAQACAAMAAABCABAAAQACAAMAAABDABAAAQACAAMAAABEABAAAQACAAMAAABFABAAAQACAAMAAABGABAAAQACAAMAAABHABAAAQACAAMAAABIABAAAQADAAMAAABIAA8AAQADAAIAAABBAA8AAQACAAIAAABCAA8AAQACAAIAAABDAA8AAQACAAIAAABEAA8AAQACAAIAAABFAA8AAQACAAIAAABGAA8AAQACAAIAAABHAA8AAQACAAIAAAAzAA0AAAACAAIAAABMAA0AAQABAAUAAABNAA0AAQACAAUAAABOAA0AAQADAAUAAABCAA0AAAACAAIAAABgAA4AAQABAAEAAABgAA8AAQABAAIAAABgABAAAQABAAMAAABhAA4AAQACAAEAAABhAA8AAQACAAIAAABhABAAAQACAAMAAABiAA4AAQACAAEAAABiAA8AAQACAAIAAABiABAAAQACAAMAAABjAA4AAQACAAEAAABjAA8AAQACAAIAAABjABAAAQACAAMAAABkAA4AAQACAAEAAABkAA8AAQACAAIAAABkABAAAQACAAMAAABlAA4AAQACAAEAAABlAA8AAQACAAIAAABlABAAAQACAAMAAABmAA4AAQACAAEAAABmAA8AAQACAAIAAABmABAAAQACAAMAAABnAA4AAQADAAEAAABnAA8AAQADAAIAAABnABAAAQADAAMAAABuAAwAAQABAAUAAABvAAwAAQACAAUAAABwAAwAAQACAAUAAABxAAwAAQACAAUAAAByAAwAAQACAAUAAABzAAwAAQACAAUAAAB0AAwAAQACAAUAAABuAAgAAQABAAUAAABvAAgAAQACAAUAAABwAAgAAQACAAUAAABxAAgAAQACAAUAAAByAAgAAQACAAUAAABzAAgAAQACAAUAAAB0AAgAAQACAAUAAAB1AAgAAQACAAUAAAB1AAwAAQACAAUAAAB2AAwAAQACAAUAAAB3AAwAAQACAAUAAAB2AAgAAQACAAUAAAB3AAgAAQACAAUAAAB4AAkAAQAFAAIAAAB4AAoAAQAFAAIAAAB4AAsAAQAFAAIAAAB4AAgAAQAFAAUAAAB4AAwAAQAFAAUAAAB9AA8AAQABAAUAAAB+AA8AAQACAAUAAAB/AA8AAQADAAUAAACBAAYAAQABAAUAAACCAAYAAQACAAUAAACDAAYAAQADAAUAAACDAAsAAQABAAEAAACDAAwAAQABAAIAAACDAA0AAQABAAMAAACEAAsAAQACAAEAAACEAAwAAQACAAIAAACEAA0AAQACAAMAAACFAAsAAQADAAEAAACFAAwAAQADAAIAAACFAA0AAQADAAMAAACEAAoAAAACAAIAAACYAAsAAQABAAUAAACZAAsAAQACAAUAAACaAAsAAQADAAUAAACgAAsAAQABAAUAAAChAAsAAQACAAUAAACiAAsAAQADAAUAAACgABMAAQABAAUAAAChABMAAQACAAUAAACiABMAAQACAAUAAACjABMAAQACAAUAAACkABMAAQACAAUAAACsAA8AAQAFAAUAAACrAA8AAQACAAUAAACqAA8AAQACAAUAAACpAA8AAQACAAUAAACoAA8AAQACAAUAAACnAA8AAQACAAUAAACmAA8AAQABAAUAAACsAA4AAQABAAIAAACsAA0AAQABAAIAAACsAAwAAQABAAIAAACsAAsAAQABAAIAAACsAAoAAQABAAIAAACsAAkAAQABAAIAAACsAAgAAQABAAIAAACsAAcAAQABAAIAAACsAAYAAQABAAIAAACsAAUAAQABAAIAAACsAAQAAQABAAIAAACsAAMAAQABAAIAAACsAAIAAQABAAIAAACsAAEAAQABAAIAAACsAAAAAQAFAAUAAAA=")
+tile_map_data = PackedByteArray("AAAAABMAAQAFAAUAAAABABMAAQACAAEAAAACABMAAQACAAEAAAADABMAAQACAAEAAAAEABMAAQACAAEAAAAFABMAAQACAAEAAAAGABMAAQACAAEAAAAHABMAAQACAAEAAAAIABMAAQAFAAUAAAAAAAAAAQAFAAUAAAABAAAAAQACAAEAAAACAAAAAQACAAEAAAADAAAAAQACAAEAAAAEAAAAAQACAAEAAAAFAAAAAQACAAEAAAAGAAAAAQACAAEAAAAHAAAAAQACAAEAAAAIAAAAAQACAAEAAAAJAAAAAQACAAEAAAAKAAAAAQACAAEAAAALAAAAAQACAAEAAAAMAAAAAQACAAEAAAANAAAAAQACAAEAAAAOAAAAAQACAAEAAAAPAAAAAQACAAEAAAAQAAAAAQACAAEAAAARAAAAAQACAAEAAAASAAAAAQACAAEAAAATAAAAAQACAAEAAAAUAAAAAQACAAEAAAAVAAAAAQACAAEAAAAWAAAAAQACAAEAAAAXAAAAAQACAAEAAAAYAAAAAQACAAEAAAAZAAAAAQACAAEAAAAaAAAAAQACAAEAAAAbAAAAAQACAAEAAAAcAAAAAQACAAEAAAAdAAAAAQACAAEAAAAeAAAAAQACAAEAAAAfAAAAAQACAAEAAAAgAAAAAQACAAEAAAAhAAAAAQACAAEAAAAiAAAAAQACAAEAAAAjAAAAAQACAAEAAAAkAAAAAQACAAEAAAAlAAAAAQACAAEAAAAmAAAAAQACAAEAAAAnAAAAAQACAAEAAAAoAAAAAQACAAEAAAApAAAAAQACAAEAAAAqAAAAAQACAAEAAAArAAAAAQACAAEAAAAsAAAAAQACAAEAAAAtAAAAAQACAAEAAAAuAAAAAQACAAEAAAAvAAAAAQACAAEAAAAwAAAAAQACAAEAAAAxAAAAAQACAAEAAAAyAAAAAQACAAEAAAAzAAAAAQACAAEAAAA0AAAAAQACAAEAAAA1AAAAAQACAAEAAAA2AAAAAQACAAEAAAA3AAAAAQACAAEAAAA4AAAAAQACAAEAAAA5AAAAAQACAAEAAAA6AAAAAQACAAEAAAA7AAAAAQACAAEAAAA8AAAAAQACAAEAAAA9AAAAAQACAAEAAAA+AAAAAQACAAEAAAA/AAAAAQACAAEAAABAAAAAAQACAAEAAABBAAAAAQACAAEAAABCAAAAAQACAAEAAABDAAAAAQACAAEAAABEAAAAAQACAAEAAAAAABIAAQADAAIAAAAAABEAAQADAAIAAAAAABAAAQADAAIAAAAAAA8AAQADAAIAAAAAAA4AAQADAAIAAAAAAA0AAQADAAIAAAAAAAwAAQADAAIAAAAAAAsAAQADAAIAAAAAAAoAAQADAAIAAAAAAAkAAQADAAIAAAAAAAgAAQADAAIAAAAAAAcAAQADAAIAAAAAAAYAAQADAAIAAAAAAAUAAQADAAIAAAAAAAQAAQADAAIAAAAAAAMAAQADAAIAAAAAAAIAAQADAAIAAAAAAAEAAQADAAIAAAClABMAAQACAAUAAACmABMAAQACAAUAAACnABMAAQACAAUAAACoABMAAQACAAUAAACpABMAAQACAAUAAACqABMAAQACAAUAAACrABMAAQACAAUAAACsABMAAQADAAUAAABFAAAAAQACAAEAAABGAAAAAQACAAEAAABHAAAAAQACAAEAAABIAAAAAQACAAEAAABJAAAAAQACAAEAAABKAAAAAQACAAEAAABLAAAAAQACAAEAAABMAAAAAQACAAEAAABNAAAAAQACAAEAAABOAAAAAQACAAEAAABPAAAAAQACAAEAAABQAAAAAQACAAEAAABRAAAAAQACAAEAAABSAAAAAQACAAEAAABTAAAAAQACAAEAAABUAAAAAQACAAEAAABVAAAAAQACAAEAAABWAAAAAQACAAEAAABXAAAAAQACAAEAAABYAAAAAQACAAEAAABZAAAAAQACAAEAAABaAAAAAQACAAEAAABbAAAAAQACAAEAAABcAAAAAQACAAEAAABdAAAAAQACAAEAAABeAAAAAQACAAEAAABfAAAAAQACAAEAAABgAAAAAQACAAEAAABhAAAAAQACAAEAAABiAAAAAQACAAEAAABjAAAAAQACAAEAAABkAAAAAQACAAEAAABlAAAAAQACAAEAAABmAAAAAQACAAEAAABnAAAAAQACAAEAAABoAAAAAQACAAEAAABpAAAAAQACAAEAAABqAAAAAQACAAEAAABrAAAAAQACAAEAAABsAAAAAQACAAEAAABtAAAAAQACAAEAAABuAAAAAQACAAEAAABvAAAAAQACAAEAAABwAAAAAQACAAEAAABxAAAAAQACAAEAAAByAAAAAQACAAEAAABzAAAAAQACAAEAAAB0AAAAAQACAAEAAAB1AAAAAQACAAEAAAB2AAAAAQACAAEAAAB3AAAAAQACAAEAAAB4AAAAAQACAAEAAAB5AAAAAQACAAEAAAB6AAAAAQACAAEAAAB7AAAAAQACAAEAAAB8AAAAAQACAAEAAAB9AAAAAQACAAEAAAB+AAAAAQACAAEAAAB/AAAAAQACAAEAAACAAAAAAQACAAEAAACBAAAAAQACAAEAAACCAAAAAQACAAEAAACDAAAAAQACAAEAAACEAAAAAQACAAEAAACFAAAAAQACAAEAAACGAAAAAQACAAEAAACHAAAAAQACAAEAAACIAAAAAQACAAEAAACJAAAAAQACAAEAAACKAAAAAQACAAEAAACLAAAAAQACAAEAAACMAAAAAQACAAEAAACNAAAAAQACAAEAAACOAAAAAQACAAEAAACPAAAAAQACAAEAAACQAAAAAQACAAEAAACRAAAAAQACAAEAAACSAAAAAQACAAEAAACTAAAAAQACAAEAAACUAAAAAQACAAEAAACVAAAAAQACAAEAAACWAAAAAQACAAEAAACXAAAAAQACAAEAAACYAAAAAQACAAEAAACZAAAAAQACAAEAAACaAAAAAQACAAEAAACbAAAAAQACAAEAAACcAAAAAQACAAEAAACdAAAAAQACAAEAAACeAAAAAQACAAEAAACfAAAAAQACAAEAAACgAAAAAQACAAEAAAChAAAAAQACAAEAAACiAAAAAQACAAEAAACjAAAAAQACAAEAAACkAAAAAQACAAEAAAClAAAAAQACAAEAAACmAAAAAQACAAEAAACnAAAAAQACAAEAAACoAAAAAQACAAEAAACpAAAAAQACAAEAAACqAAAAAQACAAEAAACrAAAAAQACAAEAAAAfAA8AAQABAAUAAAAgAA8AAQACAAUAAAAhAA8AAQADAAUAAAAEAAgAAQAQAAUAAAAFAAgAAQACAAUAAAAGAAgAAQACAAUAAAAHAAgAAQACAAUAAAAIAAgAAQACAAUAAAAJAAgAAQADAAUAAAAEAAcAAQAFAAIAAAAEAAYAAQAFAAIAAAAEAAUAAQAFAAIAAAAEAAQAAQAFAAIAAAAJAAUAAQAFAAMAAAAJAAQAAQAFAAIAAAAJAAMAAQARAAQAAAAEAAMAAQAQAAQAAAAFAAMAAQACAAUAAAAGAAMAAQACAAUAAAAHAAMAAQACAAUAAAAIAAMAAQACAAUAAAAMAAkAAQABAAUAAAANAAkAAQACAAUAAAAOAAkAAQACAAUAAAAPAAkAAQADAAUAAAAJAA0AAQABAAUAAAAKAA0AAQACAAUAAAALAA0AAQADAAUAAAAOABAAAQABAAUAAAAPABAAAQACAAUAAAAQABAAAQACAAUAAAARABAAAQACAAUAAAASABAAAQACAAUAAAATABAAAQACAAUAAAAUABAAAQADAAUAAAAYAA0AAQABAAUAAAAZAA0AAQACAAUAAAAaAA0AAQADAAUAAAAlAA4AAQAFAAIAAAAlAA8AAQAFAAIAAAAlABAAAQAFAAIAAAAlABEAAQAFAAIAAAAlABIAAQAFAAMAAAAlAAsAAQAFAAEAAAAlAAwAAQAFAAIAAAAlAA0AAQAFAAIAAAApABAAAQABAAUAAAAqABAAAQACAAUAAAArABAAAQACAAUAAAAsABAAAQACAAUAAAAtABAAAQACAAUAAAAuABAAAQADAAUAAAAyAA4AAQABAAUAAAAzAA4AAQACAAUAAAA0AA4AAQADAAUAAAA3AAsAAQABAAUAAAA4AAsAAQACAAUAAAA5AAsAAQADAAUAAAA+AA4AAQABAAEAAAA+AA8AAQABAAIAAAA+ABAAAQABAAMAAAA/AA4AAQACAAEAAAA/AA8AAQACAAIAAAA/ABAAAQACAAMAAABAAA4AAQACAAEAAABAAA8AAQACAAIAAABAABAAAQACAAMAAABBAA4AAQACAAEAAABCAA4AAQACAAEAAABDAA4AAQACAAEAAABEAA4AAQACAAEAAABFAA4AAQACAAEAAABGAA4AAQACAAEAAABHAA4AAQACAAEAAABIAA4AAQADAAEAAABBABAAAQACAAMAAABCABAAAQACAAMAAABDABAAAQACAAMAAABEABAAAQACAAMAAABFABAAAQACAAMAAABGABAAAQACAAMAAABHABAAAQACAAMAAABIABAAAQADAAMAAABIAA8AAQADAAIAAABBAA8AAQACAAIAAABCAA8AAQACAAIAAABDAA8AAQACAAIAAABEAA8AAQACAAIAAABFAA8AAQACAAIAAABGAA8AAQACAAIAAABHAA8AAQACAAIAAABgAA4AAQABAAEAAABgAA8AAQABAAIAAABgABAAAQABAAMAAABhAA4AAQACAAEAAABhAA8AAQACAAIAAABhABAAAQACAAMAAABiAA4AAQACAAEAAABiAA8AAQACAAIAAABiABAAAQACAAMAAABjAA4AAQACAAEAAABjAA8AAQACAAIAAABjABAAAQACAAMAAABkAA4AAQACAAEAAABkAA8AAQACAAIAAABkABAAAQACAAMAAABlAA4AAQACAAEAAABlAA8AAQACAAIAAABlABAAAQACAAMAAABmAA4AAQACAAEAAABmAA8AAQACAAIAAABmABAAAQACAAMAAABnAA4AAQADAAEAAABnAA8AAQADAAIAAABnABAAAQADAAMAAABuAAwAAQABAAUAAABvAAwAAQACAAUAAABwAAwAAQACAAUAAABxAAwAAQACAAUAAAByAAwAAQACAAUAAABzAAwAAQACAAUAAAB0AAwAAQACAAUAAABuAAgAAQABAAUAAABvAAgAAQACAAUAAABwAAgAAQACAAUAAABxAAgAAQACAAUAAAByAAgAAQACAAUAAABzAAgAAQACAAUAAAB0AAgAAQACAAUAAAB1AAgAAQACAAUAAAB1AAwAAQACAAUAAAB2AAwAAQACAAUAAAB3AAwAAQACAAUAAAB2AAgAAQACAAUAAAB3AAgAAQACAAUAAAB4AAkAAQAFAAIAAAB4AAoAAQAFAAIAAAB4AAsAAQAFAAIAAAB4AAgAAQAFAAUAAAB4AAwAAQAFAAUAAACDAAsAAQABAAEAAACDAAwAAQABAAIAAACDAA0AAQABAAMAAACEAAsAAQACAAEAAACEAAwAAQACAAIAAACEAA0AAQACAAMAAACFAAsAAQADAAEAAACFAAwAAQADAAIAAACFAA0AAQADAAMAAACYAAsAAQABAAUAAACZAAsAAQACAAUAAACaAAsAAQADAAUAAACgAAsAAQABAAUAAAChAAsAAQACAAUAAACiAAsAAQADAAUAAACgABMAAQABAAUAAAChABMAAQACAAUAAACiABMAAQACAAUAAACjABMAAQACAAUAAACkABMAAQACAAUAAACsAA8AAQAFAAUAAACrAA8AAQACAAUAAACqAA8AAQACAAUAAACpAA8AAQACAAUAAACoAA8AAQACAAUAAACnAA8AAQACAAUAAACmAA8AAQABAAUAAACsAA4AAQABAAIAAACsAA0AAQABAAIAAACsAAwAAQABAAIAAACsAAsAAQABAAIAAACsAAoAAQABAAIAAACsAAkAAQABAAIAAACsAAgAAQABAAIAAACsAAcAAQABAAIAAACsAAYAAQABAAIAAACsAAUAAQABAAIAAACsAAQAAQABAAIAAACsAAMAAQABAAIAAACsAAIAAQABAAIAAACsAAEAAQABAAIAAACsAAAAAQAFAAUAAAAzAA0AAAACAAIAAABCAA0AAAACAAIAAACEAAoAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_vsy2i")
 
-[node name="Killzone" parent="Map" instance=ExtResource("4_a4hbj")]
+[node name="PlatformNode" type="Node2D" parent="Map"]
 position = Vector2(400, 680)
+
+[node name="Platform" type="AnimatableBody2D" parent="Map/PlatformNode"]
+position = Vector2(1980, -218)
+
+[node name="Sprite2D" type="Sprite2D" parent="Map/PlatformNode/Platform"]
+texture = ExtResource("6_lw6ce")
+hframes = 4
+vframes = 3
+frame = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/PlatformNode/Platform"]
+position = Vector2(4.5, 2.5)
+shape = SubResource("RectangleShape2D_qtbmo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Map/PlatformNode/Platform"]
+libraries = {
+"": SubResource("AnimationLibrary_qxw37")
+}
+autoplay = "RESET"
+
+[node name="Platform2" type="AnimatableBody2D" parent="Map/PlatformNode"]
+position = Vector2(3640, -184)
+
+[node name="Sprite2D" type="Sprite2D" parent="Map/PlatformNode/Platform2"]
+texture = ExtResource("6_lw6ce")
+hframes = 4
+vframes = 3
+frame = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/PlatformNode/Platform2"]
+position = Vector2(4.5, 2.5)
+shape = SubResource("RectangleShape2D_vm5m3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Map/PlatformNode/Platform2"]
+libraries = {
+"": SubResource("AnimationLibrary_e87ql")
+}
+autoplay = "up and down"
+
+[node name="Platform3" type="AnimatableBody2D" parent="Map/PlatformNode"]
+position = Vector2(3768, -472)
+
+[node name="Sprite2D" type="Sprite2D" parent="Map/PlatformNode/Platform3"]
+texture = ExtResource("6_lw6ce")
+hframes = 4
+vframes = 3
+frame = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/PlatformNode/Platform3"]
+position = Vector2(4.5, 2.5)
+shape = SubResource("RectangleShape2D_vm5m3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Map/PlatformNode/Platform3"]
+libraries = {
+"": SubResource("AnimationLibrary_ueqyr")
+}
+autoplay = "left and right"
+
+[node name="Enemy" type="Node2D" parent="."]
+position = Vector2(1648, 432)
+
+[node name="Enemies" type="Node2D" parent="Enemy" groups=["knifeHit"]]
+position = Vector2(0, 1)
+scale = Vector2(1.22888, 1.22888)
+
+[node name="TestEnemyCharacter" type="Node2D" parent="Enemy/Enemies"]
+scale = Vector2(0.204183, 0.19353)
+script = ExtResource("10_lw22r")
+
+[node name="TestEnemyCharacter" type="Sprite2D" parent="Enemy/Enemies/TestEnemyCharacter"]
+texture = ExtResource("11_7eo8k")
+
+[node name="Timer" type="Timer" parent="Enemy/Enemies/TestEnemyCharacter"]
+wait_time = 1.5
+
+[node name="Area2D" type="Area2D" parent="Enemy/Enemies/TestEnemyCharacter"]
+visible = false
+scale = Vector2(2.74259, 2.74259)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Enemies/TestEnemyCharacter/Area2D"]
+scale = Vector2(39.6768, 43.0639)
+shape = SubResource("CircleShape2D_f3p82")
+
+[node name="Bullet" type="Node2D" parent="Enemy/Enemies" groups=["knifeHit"]]
+scale = Vector2(0.55999, 0.530773)
+
+[node name="Bullets1" parent="Enemy/Enemies/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets2" parent="Enemy/Enemies/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets3" parent="Enemy/Enemies/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets4" parent="Enemy/Enemies/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets5" parent="Enemy/Enemies/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets6" parent="Enemy/Enemies/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Timer" type="Timer" parent="Enemy/Enemies"]
+
+[node name="Hitbox" type="Area2D" parent="Enemy/Enemies" groups=["knifeHit"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Enemies/Hitbox"]
+visibility_layer = 9
+shape = SubResource("RectangleShape2D_7gne3")
+debug_color = Color(0.909582, 0.285584, 0.226237, 0.42)
+
+[node name="Enemies 2" type="Node2D" parent="Enemy" groups=["knifeHit"]]
+position = Vector2(480, 0)
+scale = Vector2(1.22888, 1.22888)
+
+[node name="TestEnemyCharacter" type="Node2D" parent="Enemy/Enemies 2"]
+scale = Vector2(0.204183, 0.19353)
+script = ExtResource("10_lw22r")
+
+[node name="TestEnemyCharacter" type="Sprite2D" parent="Enemy/Enemies 2/TestEnemyCharacter"]
+texture = ExtResource("11_7eo8k")
+
+[node name="Timer" type="Timer" parent="Enemy/Enemies 2/TestEnemyCharacter"]
+wait_time = 1.5
+
+[node name="Area2D" type="Area2D" parent="Enemy/Enemies 2/TestEnemyCharacter"]
+visible = false
+scale = Vector2(2.74259, 2.74259)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Enemies 2/TestEnemyCharacter/Area2D"]
+scale = Vector2(39.6768, 43.0639)
+shape = SubResource("CircleShape2D_f3p82")
+
+[node name="Bullet" type="Node2D" parent="Enemy/Enemies 2" groups=["knifeHit"]]
+scale = Vector2(0.55999, 0.530773)
+
+[node name="Bullets1" parent="Enemy/Enemies 2/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets2" parent="Enemy/Enemies 2/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets3" parent="Enemy/Enemies 2/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets4" parent="Enemy/Enemies 2/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets5" parent="Enemy/Enemies 2/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets6" parent="Enemy/Enemies 2/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Timer" type="Timer" parent="Enemy/Enemies 2"]
+
+[node name="Hitbox" type="Area2D" parent="Enemy/Enemies 2" groups=["knifeHit"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Enemies 2/Hitbox"]
+visibility_layer = 9
+shape = SubResource("RectangleShape2D_7gne3")
+debug_color = Color(0.909582, 0.285584, 0.226237, 0.42)
+
+[node name="Enemies 3" type="Node2D" parent="Enemy" groups=["knifeHit"]]
+position = Vector2(2592, -95)
+scale = Vector2(1.22888, 1.22888)
+
+[node name="TestEnemyCharacter" type="Node2D" parent="Enemy/Enemies 3"]
+scale = Vector2(0.204183, 0.19353)
+script = ExtResource("10_lw22r")
+
+[node name="TestEnemyCharacter" type="Sprite2D" parent="Enemy/Enemies 3/TestEnemyCharacter"]
+texture = ExtResource("11_7eo8k")
+
+[node name="Timer" type="Timer" parent="Enemy/Enemies 3/TestEnemyCharacter"]
+wait_time = 1.5
+
+[node name="Area2D" type="Area2D" parent="Enemy/Enemies 3/TestEnemyCharacter"]
+visible = false
+scale = Vector2(2.74259, 2.74259)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Enemies 3/TestEnemyCharacter/Area2D"]
+scale = Vector2(39.6768, 43.0639)
+shape = SubResource("CircleShape2D_v6s7g")
+
+[node name="Bullet" type="Node2D" parent="Enemy/Enemies 3" groups=["knifeHit"]]
+scale = Vector2(0.55999, 0.530773)
+
+[node name="Bullets1" parent="Enemy/Enemies 3/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets2" parent="Enemy/Enemies 3/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets3" parent="Enemy/Enemies 3/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets4" parent="Enemy/Enemies 3/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets5" parent="Enemy/Enemies 3/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets6" parent="Enemy/Enemies 3/Bullet" instance=ExtResource("12_i0y1j")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Timer" type="Timer" parent="Enemy/Enemies 3"]
+
+[node name="Hitbox" type="Area2D" parent="Enemy/Enemies 3" groups=["knifeHit"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Enemies 3/Hitbox"]
+visibility_layer = 9
+shape = SubResource("RectangleShape2D_2r3lb")
+debug_color = Color(0.909582, 0.285584, 0.226237, 0.42)
+
+[node name="Lasers" type="Node2D" parent="."]
+position = Vector2(5040, 328)
+scale = Vector2(1.63188, 1.64434)
+
+[node name="Lasers" parent="Lasers" instance=ExtResource("6_svqud")]
+position = Vector2(-2666.87, -53.517)
+scale = Vector2(1.7296, 1.7165)
+
+[node name="Lasers2" parent="Lasers" instance=ExtResource("6_svqud")]
 
 [node name="gameManager" type="Node" parent="."]
 unique_name_in_owner = true
@@ -1741,7 +2116,9 @@ script = ExtResource("6_5eei5")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="gameManager"]
 
-[node name="Panel" type="Panel" parent="gameManager/CanvasLayer"]
+[node name="Points" type="Node" parent="gameManager/CanvasLayer"]
+
+[node name="Panel" type="Panel" parent="gameManager/CanvasLayer/Points"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -1749,8 +2126,9 @@ offset_left = -252.0
 offset_bottom = 84.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ycvr")
+metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="gameManager/CanvasLayer/Panel"]
+[node name="Label" type="Label" parent="gameManager/CanvasLayer/Points/Panel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -1764,8 +2142,9 @@ theme_override_font_sizes/font_size = 25
 text = "Points : 0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="coin_image" type="Panel" parent="gameManager/CanvasLayer/Panel"]
+[node name="coin_image" type="Panel" parent="gameManager/CanvasLayer/Points/Panel"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -1776,8 +2155,9 @@ offset_right = 83.0
 offset_bottom = 37.0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_dffup")
+metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="gameManager/CanvasLayer/Panel/coin_image"]
+[node name="TextureRect" type="TextureRect" parent="gameManager/CanvasLayer/Points/Panel/coin_image"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1793,15 +2173,18 @@ grow_vertical = 2
 texture = ExtResource("7_rpd12")
 expand_mode = 2
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="gameManager/CanvasLayer"]
+[node name="Health bar" type="Node" parent="gameManager/CanvasLayer"]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="gameManager/CanvasLayer/Health bar"]
 offset_right = 160.0
 offset_bottom = 160.0
 value = 100.0
 fill_mode = 3
 texture_under = ExtResource("8_dorgv")
 texture_progress = ExtResource("9_j2wwm")
+metadata/_edit_use_anchors_ = true
 
-[node name="TextureProgressBar2" type="TextureProgressBar" parent="gameManager/CanvasLayer"]
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="gameManager/CanvasLayer/Health bar"]
 offset_left = 88.0
 offset_right = 248.0
 offset_bottom = 160.0
@@ -1809,8 +2192,9 @@ value = 100.0
 fill_mode = 3
 texture_under = ExtResource("8_dorgv")
 texture_progress = ExtResource("9_j2wwm")
+metadata/_edit_use_anchors_ = true
 
-[node name="TextureProgressBar3" type="TextureProgressBar" parent="gameManager/CanvasLayer"]
+[node name="TextureProgressBar3" type="TextureProgressBar" parent="gameManager/CanvasLayer/Health bar"]
 offset_left = 176.0
 offset_right = 336.0
 offset_bottom = 160.0
@@ -1818,56 +2202,126 @@ value = 100.0
 fill_mode = 3
 texture_under = ExtResource("8_dorgv")
 texture_progress = ExtResource("9_j2wwm")
+metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" type="Node2D" parent="."]
-position = Vector2(1648, 432)
+[node name="GameOverTimer" type="Timer" parent="gameManager/CanvasLayer/Health bar"]
+one_shot = true
 
-[node name="Node2D" type="Node2D" parent="Enemy"]
-
-[node name="TestEnemyCharacter" type="Node2D" parent="Enemy/Node2D"]
-scale = Vector2(0.204183, 0.19353)
-script = ExtResource("10_lw22r")
-
-[node name="TestEnemyCharacter" type="Sprite2D" parent="Enemy/Node2D/TestEnemyCharacter"]
-texture = ExtResource("11_7eo8k")
-
-[node name="Timer" type="Timer" parent="Enemy/Node2D/TestEnemyCharacter"]
-wait_time = 1.5
-
-[node name="Area2D" type="Area2D" parent="Enemy/Node2D/TestEnemyCharacter"]
+[node name="Level finish menu" type="Control" parent="gameManager/CanvasLayer"]
 visible = false
-scale = Vector2(2.74259, 2.74259)
-collision_mask = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Node2D/TestEnemyCharacter/Area2D"]
-scale = Vector2(39.6768, 43.0639)
-shape = SubResource("CircleShape2D_ctt11")
+[node name="Panel" type="Panel" parent="gameManager/CanvasLayer/Level finish menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 219.0
+offset_top = 124.0
+offset_right = -219.0
+offset_bottom = -124.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1gylk")
 
-[node name="Bullet" type="Node2D" parent="Enemy/Node2D"]
-scale = Vector2(0.55999, 0.530773)
+[node name="HBoxContainer" type="HBoxContainer" parent="gameManager/CanvasLayer/Level finish menu/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.101
+anchor_top = 0.797
+anchor_right = 0.901
+anchor_bottom = 1.0
+offset_left = -0.114006
+offset_top = -37.8
+offset_right = 7.14099
+offset_bottom = -27.475
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 100
+alignment = 1
 
-[node name="Bullets1" parent="Enemy/Node2D/Bullet" instance=ExtResource("12_i0y1j")]
-scale = Vector2(0.801701, 0.845832)
+[node name="Menu" type="Button" parent="gameManager/CanvasLayer/Level finish menu/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.924414, 0.950265, 0.940157, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_dttrr")
+text = "Main Menu"
 
-[node name="Bullets2" parent="Enemy/Node2D/Bullet" instance=ExtResource("12_i0y1j")]
-scale = Vector2(0.801701, 0.845832)
+[node name="Restart" type="Button" parent="gameManager/CanvasLayer/Level finish menu/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.924414, 0.950265, 0.940157, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_dttrr")
+text = "Restart"
 
-[node name="Timer" type="Timer" parent="Enemy/Node2D"]
+[node name="Next Level" type="Button" parent="gameManager/CanvasLayer/Level finish menu/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.924414, 0.950265, 0.940157, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_dttrr")
+text = "Next Level
+"
 
-[node name="Node2D2" parent="Enemy" instance=ExtResource("7_wy2ue")]
-position = Vector2(480, 0)
+[node name="PointsContainer" type="PanelContainer" parent="gameManager/CanvasLayer/Level finish menu/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -246.0
+offset_top = -85.0
+offset_right = -187.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Lasers" type="Node2D" parent="."]
-position = Vector2(5040, 328)
-scale = Vector2(1.63188, 1.64434)
+[node name="VBoxContainer" type="VBoxContainer" parent="gameManager/CanvasLayer/Level finish menu/Panel/PointsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 66
 
-[node name="Lasers" parent="Lasers" instance=ExtResource("6_svqud")]
-position = Vector2(-2666.87, -53.517)
-scale = Vector2(1.7296, 1.7165)
+[node name="Points" type="Label" parent="gameManager/CanvasLayer/Level finish menu/Panel/PointsContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Points:"
 
-[node name="Lasers2" parent="Lasers" instance=ExtResource("6_svqud")]
+[node name="Deaths" type="Label" parent="gameManager/CanvasLayer/Level finish menu/Panel/PointsContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "Deaths:"
 
-[connection signal="timeout" from="Enemy/Node2D/TestEnemyCharacter/Timer" to="Enemy/Node2D/TestEnemyCharacter" method="_on_timer_timeout"]
-[connection signal="body_entered" from="Enemy/Node2D/TestEnemyCharacter/Area2D" to="Enemy/Node2D/TestEnemyCharacter" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Enemy/Node2D/TestEnemyCharacter/Area2D" to="Enemy/Node2D/TestEnemyCharacter" method="_on_area_2d_body_exited"]
-[connection signal="timeout" from="Enemy/Node2D/Timer" to="Enemy/Node2D/TestEnemyCharacter" method="_on_timer_timeout"]
+[node name="Checkpoint" parent="gameManager" instance=ExtResource("15_hsxsn")]
+position = Vector2(3672, 360)
+
+[node name="Killzone" parent="gameManager" instance=ExtResource("4_a4hbj")]
+position = Vector2(400, 680)
+
+[node name="Win" type="Area2D" parent="gameManager"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gameManager/Win"]
+position = Vector2(5469, 560)
+shape = SubResource("RectangleShape2D_w5ny1")
+
+[connection signal="timeout" from="Enemy/Enemies/TestEnemyCharacter/Timer" to="Enemy/Enemies/TestEnemyCharacter" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Enemy/Enemies/TestEnemyCharacter/Area2D" to="Enemy/Enemies/TestEnemyCharacter" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Enemy/Enemies/TestEnemyCharacter/Area2D" to="Enemy/Enemies/TestEnemyCharacter" method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Enemy/Enemies/Timer" to="Enemy/Enemies/TestEnemyCharacter" method="_on_timer_timeout"]
+[connection signal="timeout" from="Enemy/Enemies 2/TestEnemyCharacter/Timer" to="Enemy/Enemies 2/TestEnemyCharacter" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Enemy/Enemies 2/TestEnemyCharacter/Area2D" to="Enemy/Enemies 2/TestEnemyCharacter" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Enemy/Enemies 2/TestEnemyCharacter/Area2D" to="Enemy/Enemies 2/TestEnemyCharacter" method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Enemy/Enemies 2/Timer" to="Enemy/Enemies 2/TestEnemyCharacter" method="_on_timer_timeout"]
+[connection signal="timeout" from="Enemy/Enemies 3/TestEnemyCharacter/Timer" to="Enemy/Enemies 3/TestEnemyCharacter" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Enemy/Enemies 3/TestEnemyCharacter/Area2D" to="Enemy/Enemies 3/TestEnemyCharacter" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Enemy/Enemies 3/TestEnemyCharacter/Area2D" to="Enemy/Enemies 3/TestEnemyCharacter" method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Enemy/Enemies 3/Timer" to="Enemy/Enemies 3/TestEnemyCharacter" method="_on_timer_timeout"]
+[connection signal="timeout" from="gameManager/CanvasLayer/Health bar/GameOverTimer" to="gameManager" method="_on_game_over_timer_timeout"]
+[connection signal="body_entered" from="gameManager/Win" to="gameManager" method="_on_win_body_entered"]
