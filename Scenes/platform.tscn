@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://2lc16k3svnxw"]
+
+[ext_resource type="Texture2D" uid="uid://ckquiowv8y5i6" path="res://Tile map (game tech).png" id="1_kj7ar"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vm5m3"]
+size = Vector2(95, 31)
+
+[node name="Platform" type="AnimatableBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kj7ar")
+hframes = 4
+vframes = 3
+frame = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4.5, 2.5)
+shape = SubResource("RectangleShape2D_vm5m3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

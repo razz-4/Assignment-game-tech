@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bqh3n7x5xhph2"]
+[gd_scene load_steps=14 format=3 uid="uid://bqh3n7x5xhph2"]
 
 [ext_resource type="Script" path="res://Scripts/main_character.gd" id="1_bniy5"]
 [ext_resource type="Texture2D" uid="uid://bwe23mxcktl2k" path="res://Assets/Characters/IMG_0125.PNG" id="2_lr5eu"]
@@ -46,7 +46,49 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7dnpr"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qpsv"]
+size = Vector2(90.1447, 37.2535)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i5xcf"]
+size = Vector2(18.9711, 24.6233)
+
+[sub_resource type="Animation" id="Animation_buyjg"]
+resource_name = "Attack"
+length = 0.3
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/KnifeHit/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_jum7e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/KnifeHit/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8rq1y"]
+_data = {
+"Attack": SubResource("Animation_buyjg"),
+"RESET": SubResource("Animation_jum7e")
+}
 
 [node name="mainCharacter" type="CharacterBody2D" groups=["Player"]]
 scale = Vector2(0.267456, 0.267456)
@@ -54,11 +96,25 @@ collision_layer = 3
 script = ExtResource("1_bniy5")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.097108, 0.097108)
+scale = Vector2(0.097, 0.097)
 sprite_frames = SubResource("SpriteFrames_3g723")
 autoplay = "default"
 frame_progress = 0.914481
 
+[node name="KnifeHit" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/KnifeHit"]
+position = Vector2(117.892, 17.8444)
+shape = SubResource("RectangleShape2D_7qpsv")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.574363, 0.736411)
-shape = SubResource("CircleShape2D_7dnpr")
+position = Vector2(0.540717, 0.86193)
+scale = Vector2(0.424806, 0.736411)
+shape = SubResource("RectangleShape2D_i5xcf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8rq1y")
+}
+
+[connection signal="area_entered" from="Sprite2D/KnifeHit" to="." method="_on_knife_hit_area_entered"]

@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://ce6s62ubvcqwq"]
+[gd_scene load_steps=6 format=3 uid="uid://ce6s62ubvcqwq"]
 
 [ext_resource type="Texture2D" uid="uid://bobkf3nk7yilc" path="res://icon.svg" id="1_brwfg"]
 [ext_resource type="Script" path="res://Scripts/test_enemy_character.gd" id="1_tuyow"]
 [ext_resource type="PackedScene" uid="uid://bad2ocgoyx75q" path="res://Scenes/testenemy_bullet.tscn" id="3_nf1mk"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ctt11"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_v6s7g"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2r3lb"]
+size = Vector2(26.04, 26.04)
+
+[node name="Enemies" type="Node2D" groups=["knifeHit"]]
+scale = Vector2(1.22888, 1.22888)
 
 [node name="TestEnemyCharacter" type="Node2D" parent="."]
 scale = Vector2(0.204183, 0.19353)
@@ -25,9 +29,9 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestEnemyCharacter/Area2D"]
 scale = Vector2(39.6768, 43.0639)
-shape = SubResource("CircleShape2D_ctt11")
+shape = SubResource("CircleShape2D_v6s7g")
 
-[node name="Bullet" type="Node2D" parent="."]
+[node name="Bullet" type="Node2D" parent="." groups=["knifeHit"]]
 scale = Vector2(0.55999, 0.530773)
 
 [node name="Bullets1" parent="Bullet" instance=ExtResource("3_nf1mk")]
@@ -36,7 +40,26 @@ scale = Vector2(0.801701, 0.845832)
 [node name="Bullets2" parent="Bullet" instance=ExtResource("3_nf1mk")]
 scale = Vector2(0.801701, 0.845832)
 
+[node name="Bullets3" parent="Bullet" instance=ExtResource("3_nf1mk")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets4" parent="Bullet" instance=ExtResource("3_nf1mk")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets5" parent="Bullet" instance=ExtResource("3_nf1mk")]
+scale = Vector2(0.801701, 0.845832)
+
+[node name="Bullets6" parent="Bullet" instance=ExtResource("3_nf1mk")]
+scale = Vector2(0.801701, 0.845832)
+
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Hitbox" type="Area2D" parent="." groups=["knifeHit"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+visibility_layer = 9
+shape = SubResource("RectangleShape2D_2r3lb")
+debug_color = Color(0.909582, 0.285584, 0.226237, 0.42)
 
 [connection signal="timeout" from="TestEnemyCharacter/Timer" to="TestEnemyCharacter" method="_on_timer_timeout"]
 [connection signal="body_entered" from="TestEnemyCharacter/Area2D" to="TestEnemyCharacter" method="_on_area_2d_body_entered"]
